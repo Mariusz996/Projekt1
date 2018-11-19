@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <head>
+    <link href="css/main.css" rel="stylesheet" />    
+	<!--wspolrzedne geogr ( w tablicy), sciezki dla wykresow  -->
+    <script src="http://d3js.org/d3.v3.js"></script>
+
+    <!--moduly AngularJS definiuja aplikacje, aplikacje kontrolujace app.controller  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+
+    <!-- nie laduje całej aplikacji -..trasa na mapie ..-->
+    <script src="https://code.angularjs.org/1.2.28/angular-route.min.js"></script>
+  </head>
+  <body ng-app="myApp">
+    <div ng-view></div>
+    <script src="js/app.js"></script>
+    <script src="js/controllers/mainController.js"></script>
+	<script src="js/services/mainService.js"></script>
+    <script src="js/directives/floormapDirective.js"></script>
+
+  </body>
+</html>

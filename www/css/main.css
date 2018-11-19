@@ -1,0 +1,12 @@
+
+path{
+    stroke-width: 5px;
+    stroke: steelblue;
+    fill: none;
+}
+
+.dot {
+  fill: white;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
