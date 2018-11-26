@@ -1,7 +1,8 @@
 const request = require('request');
 const fs = require('fs');
+const authorization = require('./authorization');
 
-const getUserID = function (oauth, username, callback) {
+const getUserID = function (username, callback) {
     const request_data = {
         url: 'https://usosapps.umk.pl/services/users/search?name=' + encodeURIComponent(username),
         method: 'POST'
@@ -10,20 +11,19 @@ const getUserID = function (oauth, username, callback) {
     request({
         url: request_data.url,
         method: request_data.method,
-        form: oauth.authorize(request_data)
+        form: authorization.oauth.authorize(request_data)
     }, function (error, response, body) {
         const user = JSON.parse(body);
-        try {
-            callback(JSON.stringify(user.items[0].user_id));
-        } catch (error) {
-            console.log('Uzytkownik nie istnieje')
-        }
+        // console.log(user);
+        // console.log(user.items[0].user_id);
+        callback(JSON.stringify(user.items[0].user_id));
     });
 
 };
 
-const getUserInfo = (oauth, body) => {
-    const userID = body.slice(1, body.length - 1);
+const getUserInfo = (id, callback) => {
+    const userID = id.slice(1, id.length - 1);
+
     const request_data = {
         url: `https://usosapps.umk.pl/services/users/user?user_id=${userID}&fields=first_name|last_name|titles|homepage_url|office_hours|room`,
         method: 'POST'
@@ -32,17 +32,30 @@ const getUserInfo = (oauth, body) => {
     request({
         url: request_data.url,
         method: request_data.method,
-        form: oauth.authorize(request_data)
+        form: authorization.oauth.authorize(request_data)
     }, function (error, response, body) {
-        const user = JSON.parse(body);
-        console.log(`${user.titles.before} ${user.first_name} ${user.last_name}`);
-        console.log('-----');
-        console.log(`Godziny konsultacji: ${user.office_hours.pl}`);
-        console.log(`Pokój: ${user.room} <- nie działa`);
-        console.log(`Strona domowa: ${user.homepage_url}`);
+        callback(JSON.parse(body));
     });
 };
+
+const getStaffActivities = (id, callback) => {
+    id = id.slice(1, id.length - 1);
+    const request_data = {
+        url: `https://usosapps.umk.pl/services/tt/staff?user_id=${id}&days=1&fields=start_time|end_time|name|room_number`,
+        method: 'POST'
+    }
+
+
+    request({
+        url: request_data.url,
+        method: request_data.method,
+        form: authorization.oauth.authorize(request_data)
+    }, function (error, response, body) {
+        callback(body);
+    })
+}
 module.exports = {
     getUserID,
-    getUserInfo
+    getUserInfo,
+    getStaffActivities
 }
