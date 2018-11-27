@@ -17,6 +17,16 @@
     <script src="js/controllers/mainController.js"></script>
 	<script src="js/services/mainService.js"></script>
     <script src="js/directives/floormapDirective.js"></script>
+ <button  onclick="przenies()">Wybierz sale</button> 
+ <input type="text" id="sale">
+ 
+ <p id="demo"></p>
 
+ <script>
+function przenies() {
+    var x = document.getElementById("sale").value;
+    document.getElementById("demo").innerHTML = x;
+}
+</script>
   </body>
 </html>
