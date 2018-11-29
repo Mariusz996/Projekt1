@@ -1,0 +1,26 @@
+[   {
+        "Id": "0",
+        "Name": "mgr inż. Piotr Ablewski",
+        "Room": "Lab. 1 KL FAMO, 0.24 COK"
+    }, {
+        "Id": "1",
+        "Name": "dr hab. Rafał Adamczak",
+        "Room": "572"
+    }, {
+        "Id": "2",
+        "Name": "Paweł Balewski",
+        "Room": "285"
+    }, {
+        "Id": "3",
+        "Name": "prof. dr hab. Aleksander Balter",
+        "Room": "234"
+    }, {
+        "Id": "4",
+        "Name": "dr inż. Michał Pierzchalski",
+        "Room": "584"
+    }, {
+        "Id": "5",
+        "Name": "mgr inż. Michał Joachimiak",
+        "Room": "585"
+    }
+]

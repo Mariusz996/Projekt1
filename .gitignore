@@ -1,0 +1,5 @@
+node_modules/
+consumer.js
+package-lock.json
+convert.js
+kopia-txt.txt
