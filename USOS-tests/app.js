@@ -1,3 +1,20 @@
+/**
+ * Propozycja działania aplikacji ;)
+ * 
+ * Do działania aplikacji:
+ * - przed pierwszym uruchomieniem: npm install
+ * - w pliku authorization.js trzeba wpisac klucze
+ * - odpalanie aplikacji: node app.js
+ * - w przeglądarce: localhost:3000
+ * 
+ * 
+ * 
+ * Do zrobienia:
+ * -połączenie pokoju z skryptem szukajacym go na mapie
+ * -dodanie wyszukiwarki sal
+ * -po kliknieciu przycisku wiecej powinna odpalac sie sciezka /details 'przyjmujaca' imie i nazwisko.
+ */
+
 const express = require('express');
 const userInfo = require('./userInfo');
 const fs = require('fs');
@@ -16,24 +33,17 @@ app.get('/', (req, res) => {
 
 app.get('/details', (req, res) => {
     var name = req.query.name;
-
     userInfo.getUserID(name, (id) => {
         var employList = fs.readFileSync('./jsonFile.json');
         employList = JSON.parse(employList);
-        var szukany;
-        employList.forEach(item => {
-            if (item.Name === name || item.Surname === name)
-                szukany = item;
-        });
+        var szukany = employList.filter(user => user.Name.includes(name));
 
         if (id !== "") {
             userInfo.getStaffActivities(id, (body) => {
-                // console.log(szukany);
                 var activities = JSON.parse(body);
-                res.render('getinfo.hbs', {
-                    name: szukany.Name,
-                    surname: szukany.Surname,
-                    room: szukany.Room,
+                res.render('details.hbs', {
+                    name: szukany[0].Name,
+                    room: szukany[0].Room,
                     activities
                 });
             })
