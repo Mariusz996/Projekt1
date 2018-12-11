@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>{{name}}</h1>
+    <p>Pokój: {{room}}</p>
+    <h2>Plan zajęć</h2>
+    {{#each activities}}
+    <div>
+        <h2>{{this.name.pl}}</h2>
+        <p>{{this.start_time}}</p>
+        <p>{{this.end_time}}</p>
+        <p>Sala: {{this.room_number}}</p>
+    </div>
+    {{/each}}
+</body>
+
+</html>
