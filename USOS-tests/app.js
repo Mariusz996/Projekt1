@@ -1,14 +1,14 @@
 /**
  * Propozycja działania aplikacji ;)
- * 
+ *
  * Do działania aplikacji:
  * - przed pierwszym uruchomieniem: npm install
  * - w pliku authorization.js trzeba wpisac klucze
  * - odpalanie aplikacji: node app.js
  * - w przeglądarce: localhost:3000
- * 
- * 
- * 
+ *
+ *
+ *
  * Do zrobienia:
  * -połączenie pokoju z skryptem szukajacym go na mapie
  * -dodanie wyszukiwarki sal
@@ -24,17 +24,16 @@ var app = express();
 app.set('view engine', 'hbs');
 
 app.get('/', (req, res) => {
-    var users = JSON.parse(fs.readFileSync('jsonFile.json'));
-    res.render('index.hbs',{
+    var users = JSON.parse(fs.readFileSync('people.json'));
+    res.render('index.hbs', {
         users
     });
 })
 
-
-app.get('/details', (req, res) => {
-    var name = req.query.name;
+app.get('/details/:name', (req, res) => {
+    var name = req.params.name;
     userInfo.getUserID(name, (id) => {
-        var employList = fs.readFileSync('./jsonFile.json');
+        var employList = fs.readFileSync('./people.json');
         employList = JSON.parse(employList);
         var szukany = employList.filter(user => user.Name.includes(name));
 
@@ -44,11 +43,17 @@ app.get('/details', (req, res) => {
                 res.render('details.hbs', {
                     name: szukany[0].Name,
                     room: szukany[0].Room,
+                    title: szukany[0].title,
                     activities
                 });
             })
         }
-    });
+    })
+})
+
+app.get('/room/:number', (req, res) => {
+    var room = req.params.number;
+    res.render('room.hbs');
 })
 
 app.listen(3000, () => {

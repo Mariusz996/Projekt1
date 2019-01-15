@@ -9,15 +9,15 @@
 </head>
 
 <body>
-    <h1>{{name}}</h1>
-    <p>Pokój: {{room}}</p>
+    <h1>{{title}} {{name}}</h1>
+    <p>Pokój: <a href="/room/{{room}}">{{room}}</a></p>
     <h2>Plan zajęć</h2>
     {{#each activities}}
     <div>
         <h2>{{this.name.pl}}</h2>
         <p>{{this.start_time}}</p>
         <p>{{this.end_time}}</p>
-        <p>Sala: {{this.room_number}}</p>
+        <p>Sala: <a href="/room/{{this.room_number}}">{{this.room_number}}</a></p>
     </div>
     {{/each}}
 </body>
